@@ -1,7 +1,16 @@
 import { makeRequest } from 'services/base';
 import { Endpoints  } from 'services/wheather/endpoints';
 
-export const getCurrentWheather = (params: any) : any => {
-
-    makeRequest<any>(params, Endpoints.deneme)
+const getCurrentWheather = async (params: any) : Promise<void> => {
+    console.log(params)
+    const response = await makeRequest<any>({params, method: 'GET'}, Endpoints.Current) ;
+    return response ; 
 }
+
+
+
+const authService = {
+    getCurrentWheather
+}
+
+export default authService;

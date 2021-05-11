@@ -7,14 +7,13 @@ import { IRequestConfig } from 'services/types';
 export const makeRequest = async <T>(parameters: IRequestConfig, endpoint: string): Promise<T> => {
     return new Promise((resolve, reject) => {
         const { method, params = {} } = parameters;
+        const { REACT_APP_API_KEY } = process.env;
 
-       
-        console.log(params)
         const queryParams = getParams(params);
-
+       
         const config: AxiosRequestConfig = {
             method,
-            url: `${endpoint}${queryParams}`,
+            url: `${endpoint}?key=${REACT_APP_API_KEY}${queryParams}`,
         };
 
         axiosInstance(config)
@@ -29,9 +28,9 @@ export const makeRequest = async <T>(parameters: IRequestConfig, endpoint: strin
 
 const getParams = (params = {}) => {
     let queryParams = '';
-    console.log(params)
+  
     if (Object.keys(params).length > 0) {
-        queryParams = `?${Object.entries(params).map(([key, value]) => {
+        queryParams = `&${Object.entries(params).map(([key, value]) => {
             return `${key}=${value}`
         }).join('&')}`;
     }

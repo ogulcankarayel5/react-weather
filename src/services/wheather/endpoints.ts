@@ -1,3 +1,4 @@
 export enum Endpoints {
-	deneme = '/deneme'
+	ForeCast = '/forecast.json',
+	Current = '/current.json'
 }
