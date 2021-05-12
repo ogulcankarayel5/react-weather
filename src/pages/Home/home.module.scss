@@ -1,0 +1,27 @@
+@import '../../styles/scss-variables';
+.home {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: minmax(200px,400px) 1fr;
+
+}
+
+.leftSide {
+    grid-column: 1/2;
+    background-color: var(--primary)
+}
+
+.rightSide {
+    grid-column: 2/3;
+    background-color: var(--secondary);
+    padding: calc(var(--spacer-xl) * 2);
+}
+
+.tabItem {
+    font-size: 2rem;
+    color: var(--text-primary);
+}
+
+.boldText {
+    margin-left: var(--spacer-xl);
+}

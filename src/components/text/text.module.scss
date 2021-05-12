@@ -1,0 +1,16 @@
+.text {
+    font-size: 2rem;
+    color: var(--text-secondary);
+    display: inline-block;
+    letter-spacing: 1.2px;
+    &_secondary {
+        font-weight: normal;
+    }
+    &_primary {
+        font-weight: bold;
+        color: var(--text-primary);
+    }
+
+}
+
+

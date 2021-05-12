@@ -1,3 +1,4 @@
+import Home from "pages/Home/home";
 import React from "react";
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import { IRouteConfig } from "routes/types";
@@ -8,7 +9,7 @@ const routes : Array<IRouteConfig> = [
   {
     key:"root",
     path: "/",
-    component: () => <div/>,
+    component: () => <Home/>,
     exact: true
   },
 ];
