@@ -25,3 +25,10 @@
 .boldText {
     margin-left: var(--spacer-xl);
 }
+
+.tabs {
+    & button:last-of-type {
+        margin-left: 40px;
+    }
+    
+}
