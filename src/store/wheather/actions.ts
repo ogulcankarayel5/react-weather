@@ -1,6 +1,7 @@
 import { Dispatch } from 'redux';
 import { makeRequest } from 'services/base';
-import authService from 'services/wheather';
+import { IWeatherResponse } from 'services/wheather';
+import authService from 'services/wheather/weather';
 import { WheatherActionTypes } from 'store/wheather/types';
 import { WHEATHER_FAILURE, WHEATHER_REQUEST, WHEATHER_SUCCESS } from './constants';
 
@@ -11,10 +12,10 @@ export const weatherRequest = (): WheatherActionTypes => {
     }
 }
 
-export const weatherSuccess = () : WheatherActionTypes => {
+export const weatherSuccess = (data: IWeatherResponse) : WheatherActionTypes => {
     return {
         type: WHEATHER_SUCCESS,
-        payload: 'weather'
+        payload: data
     }
 }
 
@@ -29,8 +30,9 @@ export const getCurrentWeather = () => async (dispatch: Dispatch<WheatherActionT
     try {
         dispatch(weatherRequest())
 
-        const data = await authService.getCurrentWheather({q: 'London', aqi: 'no'})
-        console.log(data)
+        const data = await authService.getWheather({q: 'bursa', days:3})
+        
+        dispatch(weatherSuccess(data))
     }
 
     catch {

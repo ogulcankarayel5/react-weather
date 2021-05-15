@@ -22,7 +22,9 @@ function App() {
 
   return (
    <Provider store={store}>
+    
      <MainRouter/>
+     <Deneme/>
    </Provider>
   );
 }

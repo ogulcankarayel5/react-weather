@@ -1,7 +1,9 @@
+import { IWeatherResponse } from "services/wheather";
 import { WHEATHER_REQUEST, WHEATHER_SUCCESS, WHEATHER_FAILURE } from "store/wheather/constants";
 
 export interface WheatherState {
-
+    loading: boolean
+    weather: IWeatherResponse | null
 }
 
 export interface WheatherRequestAction {

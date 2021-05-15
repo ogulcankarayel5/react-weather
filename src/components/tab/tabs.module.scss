@@ -8,20 +8,36 @@
     font-size: var(--font-size_primary);
     position: relative;
     padding-bottom: 5px;
+
+ 
 }
 
 .active {
     color: var(--text-primary);
     font-weight: bold;
-
     &::before {
         width: 100%;
-        content: '';
         position: absolute;
         left: 0;
         bottom: 0;
-        height: 2px;
+        content: '';
         background-color: var(--color-indicator);
         margin-top: 5px;
+        height: 2px;
+    }
+}
+
+.underline {
+
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    
+    background-color: var(--color-indicator);
+    margin-top: 5px;
+    height: 2px;
+    &_active {
+        height: 2px;
     }
 }

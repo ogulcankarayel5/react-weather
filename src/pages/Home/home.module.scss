@@ -8,12 +8,12 @@
 
 .leftSide {
     grid-column: 1/2;
-    background-color: var(--primary)
+    background-color: var(--color-primary)
 }
 
 .rightSide {
     grid-column: 2/3;
-    background-color: var(--secondary);
+    background-color: var(--color-secondary);
     padding: calc(var(--spacer-xl) * 2);
 }
 
@@ -31,4 +31,10 @@
         margin-left: 40px;
     }
     
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 140px));
+    grid-gap: 1rem;
 }

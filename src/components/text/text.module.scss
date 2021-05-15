@@ -3,12 +3,25 @@
     color: var(--text-secondary);
     display: inline-block;
     letter-spacing: 1.2px;
-    &_secondary {
-        font-weight: normal;
-    }
+    font-weight: normal;
     &_primary {
-        font-weight: bold;
         color: var(--text-primary);
+    }
+
+    &_small {
+        font-size: 1.2rem;
+    }
+
+    &_medium {
+        font-size: 2rem;
+    }
+
+    &_large {
+        font-size: 2.5rem;
+    }
+
+    &_bold {
+        font-weight: bold;
     }
 
 }
