@@ -1,10 +1,11 @@
 import React from 'react'
 import styles from 'components/card/card.module.scss';
 import { Text } from 'components/text';
+import classNames from 'classnames';
 
-export const Card = ({children}: any) => {
+export const Card = ({children, className}: any) => {
     return (
-        <div className={styles.container}>
+        <div className={classNames(styles.container, className)}>
             {children}
         </div>
     )
@@ -17,9 +18,9 @@ export const CardText = ({children}: any) => {
     )
 }
 
-export const CardSecondaryText = ({children}: any) => {
+export const CardSecondaryText = ({children, ...props}: any) => {
     return (
-        <Text type="secondary" size="small">{children}</Text>
+        <Text type="secondary" size="small" {...props}>{children}</Text>
     )
 }
 export const CardImage = ({url}: any) => {

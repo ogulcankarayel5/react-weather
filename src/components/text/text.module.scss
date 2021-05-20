@@ -1,13 +1,15 @@
 .text {
     font-size: 2rem;
-    color: var(--text-secondary);
     display: inline-block;
     letter-spacing: 1.2px;
-    font-weight: normal;
+   
     &_primary {
         color: var(--text-primary);
     }
+    &_secondary {
 
+        color: var(--text-secondary);
+    }
     &_small {
         font-size: 1.2rem;
     }
@@ -22,6 +24,10 @@
 
     &_bold {
         font-weight: bold;
+    }
+
+    &_normal {
+        font-weight: normal;
     }
 
 }

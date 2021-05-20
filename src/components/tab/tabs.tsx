@@ -4,81 +4,81 @@ import React, {
   MouseEvent,
   CSSProperties,
   useRef,
+  useCallback,
+  useMemo,
+  useContext,
 } from "react";
 import cn from "classnames";
 import styles from "components/tab/tabs.module.scss";
 import { getColor } from "utils";
 
+interface ITabsContext {
+  setActive: (index: number) => void;
+  activeTab: number;
+  indicatorColor: string;
+}
+
+export const TabsContext =
+  React.createContext<ITabsContext | undefined>(undefined);
 interface ITabsProps {
   className?: string;
   children: React.ReactNode;
-  value?: number;
+  initialActive?: number;
   indicatorColor?: string;
-  onChangeItem: (index: number) => void;
 }
+
 export const Tabs = ({
-  className = "",
   children,
-  value = 0,
+  initialActive = 0,
   indicatorColor = getColor("--color-indicator"),
-  onChangeItem,
-  ...props
 }: ITabsProps) => {
-  const [tabs, setTabs] = useState<Array<ITabProps>>([]);
- 
-  const spanRef = useRef<any>();
-  useEffect(() => {
+  const [activeTab, setActiveTab] = useState(initialActive);
 
-
-    let data: any = [];
-    React.Children.forEach(children, (child) => {
-      if (!React.isValidElement(child)) return;
-      const { label, children } = child.props;
-      data.push({ label, children });
-    });
-    setTabs(data);
-  }, []);
-
-  const onClick = (event: MouseEvent<HTMLButtonElement>, index: number) => {
-    event.preventDefault();
-    onChangeItem?.(index);
-  };
-  
-  useEffect(() => {
-
-  },[value])
-  
-  return (
-    <>
-      {tabs.map((child: ITabProps, index: any) => {
-      
-        return (
-          <>
-            <button
-              key={`${child.label}-${index}`}
-              style={{ "--color-indicator": indicatorColor } as CSSProperties}
-              className={cn(
-                styles.tab,
-                { [styles.active]: index === value },
-                className
-              )}
-              onClick={(event) => onClick(event, index)}
-              {...props}
-            >
-              <span>{child.label}</span>
-            </button>
-          </>
-        );
-      })}
-      <div>{tabs[value] && tabs[value].children}</div>
-    </>
+  const setActive = useCallback(
+    (value: number) => {
+      setActiveTab(value);
+    },
+    [setActiveTab]
   );
+
+  const value = useMemo(
+    () => ({
+      setActive,
+      activeTab,
+      indicatorColor,
+    }),
+    [setActive, activeTab, indicatorColor]
+  );
+  return <TabsContext.Provider value={value}>{children}</TabsContext.Provider>;
+};
+
+export const useTabsContext = () => {
+  const context = useContext(TabsContext);
+  if (!context) {
+    throw new Error("Tab must be used within an Tabs");
+  }
+  return context;
 };
 
 interface ITabProps {
-  label?: string;
-  children?: React.ReactNode;
+  label: string;
+  id: number;
+  className?: string;
 }
-export const Tab = ({ children, label }: ITabProps) => {
-  return <>{children}</>;
+export const Tab = ({ label, id, className, ...props }: ITabProps) => {
+  const { activeTab, setActive, indicatorColor } = useTabsContext();
+  return (
+    <button
+      style={{ "--color-indicator": indicatorColor } as CSSProperties}
+      className={cn(
+        styles.tab,
+        { [styles.active]: id === activeTab },
+        className
+      )}
+      onClick={() => setActive(id)}
+      {...props}
+    >
+      <span>{label}</span>
+    </button>
+  );
 };

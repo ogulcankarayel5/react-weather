@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "pages/Home/home.module.scss";
 import { Text } from "components/text";
 import { firebaseAnalytics } from "firebaseConfig";
@@ -27,7 +27,6 @@ const tabContent = [
   },
 ];
 const Home = () => {
-  
   const { forecastWeather } = useWeather();
   const [activeTab, setActiveTab] = useState<number>(0);
   const dispatch = useDispatch();
@@ -47,9 +46,9 @@ const Home = () => {
       <div className={styles.leftSide} />
       <RightSide>
         <div className={styles.tabs}>
-          <Tabs onChangeItem={onClick} value={activeTab}>
+          <Tabs >
             {tabContent.map((tab, index) => {
-              return <Tab key={index} label={tab.title} />;
+              return <Tab key={index} label={tab.title} id={index}/>;
             })}
           </Tabs>
         </div>
@@ -62,21 +61,28 @@ const Home = () => {
                   style={{ y: 0 }}
                   animate={{ y: 10 }}
                 >
-                  <Card>
-                    <CardText>{getDayName(item.date_epoch)}</CardText>
-                    <CardImage url={item.day.condition.icon} />
-                    <CardFooter>
-                      <CardText>
-                        {getDecimalValue(item.day.maxtemp_c)}&#176;
-                      </CardText>
-                      <CardSecondaryText>
-                        {getDecimalValue(item.day.mintemp_c)}&#176;
-                      </CardSecondaryText>
-                    </CardFooter>
-                  </Card>
+                  <WeatherCard
+                    dateEpoch={item.date_epoch}
+                    icon={item.day.condition.icon}
+                    maxTemp={item.day.maxtemp_c}
+                    minTemp={item.day.mintemp_c}
+                  />
                 </motion.div>
               );
             })}
+        </div>
+        <div className={styles.highlights}>
+          <Text fontWeight="bold" type="primary">
+            Today's Highlights
+          </Text>
+          <div className={styles.cardArea}>
+            <Card className={styles.card}>
+              <CardSecondaryText className={styles.chartText}>
+                UV Index
+              </CardSecondaryText>
+              <Chart value={9} />
+            </Card>
+          </div>
         </div>
       </RightSide>
     </div>
@@ -85,10 +91,51 @@ const Home = () => {
 
 export default Home;
 
+interface IWeatherCardProps {
+  dateEpoch: number;
+  icon: string;
+  maxTemp: number;
+  minTemp: number;
+}
+export const WeatherCard = ({
+  dateEpoch,
+  icon,
+  maxTemp,
+  minTemp,
+}: IWeatherCardProps) => {
+  return (
+    <Card>
+      <CardText>{getDayName(dateEpoch)}</CardText>
+      <CardImage url={icon} />
+      <CardFooter>
+        <CardText>{getDecimalValue(maxTemp)}&#176;</CardText>
+        <CardSecondaryText>{getDecimalValue(minTemp)}&#176;</CardSecondaryText>
+      </CardFooter>
+    </Card>
+  );
+};
 export const RightSide = ({ children, className = "", ...props }: any) => {
   return (
     <div className={cn(styles.rightSide, className)} {...props}>
       {children}
+    </div>
+  );
+};
+
+export const Chart = ({ value }: any) => {
+  const chartRef = useRef<any>();
+
+  useEffect(() => {
+    console.log(`rotate(${+(45 + 4 * 11.25)})deg`);
+
+    chartRef.current.style.transform = `rotate(${+(45 + value * 10)}deg)`;
+  }, []);
+  return (
+    <div className={styles.chartContainer}>
+      <CardSecondaryText>9</CardSecondaryText>
+      <div className={styles.chartOverflow}>
+        <div ref={chartRef} />
+      </div>
     </div>
   );
 };

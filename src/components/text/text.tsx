@@ -18,7 +18,7 @@ export const Text = ({
   type = "secondary",
   fontWeight ='normal',
   className = "",
-  size,
+  size='medium',
   ...props
 }: ITextProps) => {
   const classNames = cn(
