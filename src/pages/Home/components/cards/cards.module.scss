@@ -1,0 +1,18 @@
+.weatherCard {
+   
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.highlightCard {
+    composes: container from "/src/components/card/card.module.scss";
+    padding: var(--spacer-l);
+    justify-content: space-between;
+  }
+
+  .withoutFooter {
+    height: 100%;
+    justify-content: center;
+  }
+  

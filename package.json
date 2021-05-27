@@ -33,7 +33,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "icon": "svgr icons -d src/components/icons --icon --replace-attr-values \"#fff=currentColor\""
   },
   "eslintConfig": {
     "extends": [

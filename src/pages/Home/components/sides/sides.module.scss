@@ -1,0 +1,7 @@
+
+.rightSide {
+    
+    grid-column: 2/3;
+    background-color: var(--color-secondary);
+    padding: calc(var(--spacer-xl) * 2) var(--spacer-s) calc(var(--spacer-xl) * 2) calc(var(--spacer-xl) * 2);
+  }

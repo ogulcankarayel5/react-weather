@@ -1,12 +1,14 @@
 export interface IWeatherResponse {
-    current:IWeatherResponseCurrentResponse
+    current: IWeatherResponseCurrentResponse
     location: IWeatherLocationResponse;
-    forecast:IForeCastResponse;
+    forecast: IForeCastResponse;
+    air_quality?: IAirQualityResponse
 }
 
 interface IWeatherResponseCurrentResponse {
+    air_quality: IAirQualityResponse
     cloud: string
-    condition: {text: string, icon: string, code: number}
+    condition: { text: string, icon: string, code: number }
     feelslike_c: number
     feelslike_f: number
     gust_kph: number
@@ -17,19 +19,29 @@ interface IWeatherResponseCurrentResponse {
     last_updated_epoch: number
     precip_in: number
     precip_mm: number
-    pressure_in:number
+    pressure_in: number
     pressure_mb: number
     temp_c: number
     temp_f: number
     uv: number
     vis_km: number
     vis_miles: number
-    wind_degree:number
+    wind_degree: number
     wind_dir: string
     wind_kph: number
     wind_mph: number
 }
 
+export interface IAirQualityResponse {
+    co: number
+    gb_defra_index:number
+    no2: number
+    o3: number
+    pm2_5: number
+    pm10: number
+    so2: number
+    us_epa_index: number
+}
 interface IWeatherLocationResponse {
     country: string
     lat: number
@@ -68,7 +80,7 @@ interface IDayResponse {
     avgtemp_f: number
     avgvis_km: number
     avgvis_miles: number
-    condition: {text: string, icon: string, code: number}
+    condition: { text: string, icon: string, code: number }
     daily_chance_of_rain: "0"
     daily_chance_of_snow: "0"
     daily_will_it_rain: number
@@ -88,10 +100,10 @@ interface IHourResponse {
     chance_of_rain: string,
     chance_of_snow: string
     cloud: 3
-    condition: {text: string, icon:string, code: number}
+    condition: { text: string, icon: string, code: number }
     dewpoint_c: number
     dewpoint_f: number
-    feelslike_c:number
+    feelslike_c: number
     feelslike_f: number
     gust_kph: number
     gust_mph: number
@@ -110,7 +122,7 @@ interface IHourResponse {
     uv: number
     vis_km: number
     vis_miles: number
-    will_it_rain:number
+    will_it_rain: number
     will_it_snow: number
     wind_degree: number
     wind_dir: string

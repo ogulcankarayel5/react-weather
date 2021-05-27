@@ -30,12 +30,12 @@ export const getCurrentWeather = () => async (dispatch: Dispatch<WheatherActionT
     try {
         dispatch(weatherRequest())
 
-        const data = await authService.getWheather({q: 'bursa', days:3})
+        const data = await authService.getWheather({q: 'bursa', days:3, aqi: 'yes'})
         
         dispatch(weatherSuccess(data))
     }
 
-    catch {
-
+    catch(err) {
+        console.log(err)
     }
 }

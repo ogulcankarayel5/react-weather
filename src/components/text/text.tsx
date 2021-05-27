@@ -3,7 +3,7 @@ import cn from "classnames";
 import styles from "components/text/text.module.scss";
 
 type TextTypes = "primary" | "secondary";
-type TextSizes = "small" | "medium" | "large";
+export type TextSizes = "small" | "medium" | "large";
 type FontTypes = "bold" | "normal";
 interface ITextProps {
   children: React.ReactNode;

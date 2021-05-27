@@ -3,16 +3,18 @@
     background-color: var(--color-primary);
     border-radius: var(--radi-m);
     display: flex;
-    height: 150px;
-    justify-content: space-between;
-    align-items: center;
     flex-direction: column;
+    height: 100%;
    
 }
 
+.body {
+    display: flex;
+    flex-direction: column;
+}
 .footer {
     display: flex;
-    justify-content: center;
+   
     align-items: center;
 }
 

@@ -1,9 +1,6 @@
 import React, {
-  useEffect,
   useState,
-  MouseEvent,
   CSSProperties,
-  useRef,
   useCallback,
   useMemo,
   useContext,
@@ -25,20 +22,23 @@ interface ITabsProps {
   children: React.ReactNode;
   initialActive?: number;
   indicatorColor?: string;
+  onChangeItem?:() => void;
 }
 
 export const Tabs = ({
   children,
   initialActive = 0,
   indicatorColor = getColor("--color-indicator"),
+  onChangeItem,
 }: ITabsProps) => {
   const [activeTab, setActiveTab] = useState(initialActive);
 
   const setActive = useCallback(
     (value: number) => {
       setActiveTab(value);
+      onChangeItem?.()
     },
-    [setActiveTab]
+    [setActiveTab, onChangeItem]
   );
 
   const value = useMemo(

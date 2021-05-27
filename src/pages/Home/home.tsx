@@ -1,23 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import styles from "pages/Home/home.module.scss";
 import { Text } from "components/text";
 import { firebaseAnalytics } from "firebaseConfig";
-import cn from "classnames";
 import { Tabs, Tab } from "components/tab/tabs";
 import {
-  Card,
-  CardFooter,
-  CardImage,
-  CardSecondaryText,
   CardText,
 } from "components/card";
-import { motion } from "framer-motion";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getCurrentWeather } from "store/wheather";
-import { useTypedSelector } from "store";
-import { getDayName, getDecimalValue } from "utils";
 import { IForeCastDayResponse } from "services/wheather";
 import { useWeather } from "hooks";
+import { RightSide } from "pages/Home/components/sides";
+import { WeatherCard, HighlightCard, Chart } from "pages/Home/components";
+import { DownArrow, Placeholder, UpArrow } from "components/icons";
+import classNames from "classnames";
+
 const tabContent = [
   {
     title: "Today",
@@ -27,28 +24,27 @@ const tabContent = [
   },
 ];
 const Home = () => {
-  const { forecastWeather } = useWeather();
-  const [activeTab, setActiveTab] = useState<number>(0);
+  const { forecastWeather, currentWeather, renderUsIndexText } = useWeather();
   const dispatch = useDispatch();
   useEffect(() => {
     firebaseAnalytics.logEvent("homepage_visited");
   }, []);
 
-  const onClick = (index: number) => {
-    setActiveTab(index);
+  const onClick = () => {
     dispatch(getCurrentWeather());
   };
 
   console.log(forecastWeather);
+  console.log(currentWeather);
 
   return (
     <div className={styles.home}>
       <div className={styles.leftSide} />
       <RightSide>
         <div className={styles.tabs}>
-          <Tabs >
+          <Tabs onChangeItem={onClick}>
             {tabContent.map((tab, index) => {
-              return <Tab key={index} label={tab.title} id={index}/>;
+              return <Tab key={index} label={tab.title} id={index} />;
             })}
           </Tabs>
         </div>
@@ -56,18 +52,12 @@ const Home = () => {
           {forecastWeather &&
             forecastWeather.forecastday.map((item: IForeCastDayResponse) => {
               return (
-                <motion.div
-                  transition={{ duration: 0.5 }}
-                  style={{ y: 0 }}
-                  animate={{ y: 10 }}
-                >
-                  <WeatherCard
-                    dateEpoch={item.date_epoch}
-                    icon={item.day.condition.icon}
-                    maxTemp={item.day.maxtemp_c}
-                    minTemp={item.day.mintemp_c}
-                  />
-                </motion.div>
+                <WeatherCard
+                  dateEpoch={item.date_epoch}
+                  icon={item.day.condition.icon}
+                  maxTemp={item.day.maxtemp_c}
+                  minTemp={item.day.mintemp_c}
+                />
               );
             })}
         </div>
@@ -76,12 +66,87 @@ const Home = () => {
             Today's Highlights
           </Text>
           <div className={styles.cardArea}>
-            <Card className={styles.card}>
-              <CardSecondaryText className={styles.chartText}>
-                UV Index
-              </CardSecondaryText>
-              <Chart value={9} />
-            </Card>
+            <HighlightCard
+              title="UV Index"
+              body={<Chart value={forecastWeather?.forecastday[0].day.uv} />}
+            />
+            <HighlightCard
+              title="Wind Status"
+              body={
+                <CardText size="large">
+                  {forecastWeather?.forecastday[0].day.maxwind_kph} km/h
+                </CardText>
+              }
+              footer={
+                <>
+                  <div className={styles.iconContainer}>
+                    <Placeholder
+                      style={{ fontSize: "2.5rem", transform: "rotate(20deg)" }}
+                      fill="#6875DC"
+                    />
+                  </div>
+                  <CardText className={styles.windText} size="medium">
+                    WSW
+                  </CardText>
+                </>
+              }
+            />
+            <HighlightCard
+              title="Sunrise & Sunset"
+              body={
+                <>
+                  <div className={styles.sunContainer}>
+                    <div className={styles.sun}>
+                      <UpArrow />
+                    </div>
+
+                    <CardText className={styles.sunText} size="medium">
+                      {forecastWeather?.forecastday[0].astro.sunrise}
+                    </CardText>
+                  </div>
+                  <div
+                    className={classNames(
+                      styles.sunContainer,
+                      styles.sunLastText
+                    )}
+                  >
+                    <div className={styles.sun}>
+                      <DownArrow />
+                    </div>
+
+                    <CardText className={styles.sunText} size="medium">
+                      {forecastWeather?.forecastday[0].astro.sunset}
+                    </CardText>
+                  </div>
+                </>
+              }
+            />
+            <HighlightCard
+              title="Humudity"
+              body={
+                <CardText size="large">
+                  {forecastWeather?.forecastday[0].day.avghumidity}%
+                </CardText>
+              }
+            />
+
+            <HighlightCard
+              title="Visibility"
+              body={
+                <CardText size="large">
+                  {forecastWeather?.forecastday[0].day.avgvis_km}%
+                </CardText>
+              }
+            />
+            <HighlightCard
+              title="Air Quaility"
+              body={
+                <CardText size="large">
+                  {currentWeather?.air_quality.us_epa_index}
+                </CardText>
+              }
+              footer={<CardText size="medium">{renderUsIndexText()}</CardText>}
+            />
           </div>
         </div>
       </RightSide>
@@ -91,51 +156,3 @@ const Home = () => {
 
 export default Home;
 
-interface IWeatherCardProps {
-  dateEpoch: number;
-  icon: string;
-  maxTemp: number;
-  minTemp: number;
-}
-export const WeatherCard = ({
-  dateEpoch,
-  icon,
-  maxTemp,
-  minTemp,
-}: IWeatherCardProps) => {
-  return (
-    <Card>
-      <CardText>{getDayName(dateEpoch)}</CardText>
-      <CardImage url={icon} />
-      <CardFooter>
-        <CardText>{getDecimalValue(maxTemp)}&#176;</CardText>
-        <CardSecondaryText>{getDecimalValue(minTemp)}&#176;</CardSecondaryText>
-      </CardFooter>
-    </Card>
-  );
-};
-export const RightSide = ({ children, className = "", ...props }: any) => {
-  return (
-    <div className={cn(styles.rightSide, className)} {...props}>
-      {children}
-    </div>
-  );
-};
-
-export const Chart = ({ value }: any) => {
-  const chartRef = useRef<any>();
-
-  useEffect(() => {
-    console.log(`rotate(${+(45 + 4 * 11.25)})deg`);
-
-    chartRef.current.style.transform = `rotate(${+(45 + value * 10)}deg)`;
-  }, []);
-  return (
-    <div className={styles.chartContainer}>
-      <CardSecondaryText>9</CardSecondaryText>
-      <div className={styles.chartOverflow}>
-        <div ref={chartRef} />
-      </div>
-    </div>
-  );
-};
