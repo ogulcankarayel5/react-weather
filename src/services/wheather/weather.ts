@@ -1,6 +1,6 @@
 import { makeRequest } from 'services/base';
 import { Endpoints } from 'services/wheather/endpoints';
-import { IWeatherResponse, IAirQualityResponse } from 'services/wheather/types';
+import { IWeatherResponse } from 'services/wheather/types';
 import { renameKey } from 'utils';
 
 

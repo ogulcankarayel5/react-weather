@@ -10,8 +10,8 @@ import styles from "components/tab/tabs.module.scss";
 import { getColor } from "utils";
 
 interface ITabsContext {
-  setActive: (index: number) => void;
-  activeTab: number;
+  setActive: (index: number | string) => void;
+  activeTab: number | string;
   indicatorColor: string;
 }
 
@@ -20,23 +20,23 @@ export const TabsContext =
 interface ITabsProps {
   className?: string;
   children: React.ReactNode;
-  initialActive?: number;
+  initialActive?: any;
   indicatorColor?: string;
-  onChangeItem?:() => void;
+  onChangeItem?:(value: any) => void;
 }
 
 export const Tabs = ({
   children,
   initialActive = 0,
-  indicatorColor = getColor("--color-indicator"),
+  indicatorColor = '',
   onChangeItem,
 }: ITabsProps) => {
   const [activeTab, setActiveTab] = useState(initialActive);
 
   const setActive = useCallback(
-    (value: number) => {
+    (value: any) => {
       setActiveTab(value);
-      onChangeItem?.()
+      onChangeItem?.(value)
     },
     [setActiveTab, onChangeItem]
   );
@@ -45,7 +45,7 @@ export const Tabs = ({
     () => ({
       setActive,
       activeTab,
-      indicatorColor,
+      indicatorColor, 
     }),
     [setActive, activeTab, indicatorColor]
   );
@@ -62,18 +62,21 @@ export const useTabsContext = () => {
 
 interface ITabProps {
   label: string;
-  id: number;
+  id: number | string;
   className?: string;
+  activeClass?: string;
 }
-export const Tab = ({ label, id, className, ...props }: ITabProps) => {
+export const Tab = ({ label, id, className='', activeClass='', ...props }: ITabProps) => {
   const { activeTab, setActive, indicatorColor } = useTabsContext();
+
   return (
     <button
-      style={{ "--color-indicator": indicatorColor } as CSSProperties}
+      style={ indicatorColor === '' ? {} : { "--color-indicator": indicatorColor ? indicatorColor :  getColor("--color-indicator")} as CSSProperties}
       className={cn(
         styles.tab,
-        { [styles.active]: id === activeTab },
-        className
+        { [styles.active]: activeClass === '' && id === activeTab},
+        className,
+       { [activeClass]: activeClass !== '' && id === activeTab}
       )}
       onClick={() => setActive(id)}
       {...props}

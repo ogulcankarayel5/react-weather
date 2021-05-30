@@ -26,3 +26,8 @@ export const selectLocationWeather = createSelector(
     selectWeather,
     weather => weather?.location
 )
+
+export const selectTodayWeather = createSelector(
+    selectWeather,
+    weather => weather?.forecast.forecastday[0]
+)

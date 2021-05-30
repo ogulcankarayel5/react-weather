@@ -1,4 +1,4 @@
-import { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { AxiosRequestConfig } from 'axios';
 import axiosInstance from 'services/client';
 import { IRequestConfig } from 'services/types';
 

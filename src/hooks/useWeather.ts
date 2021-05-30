@@ -1,7 +1,7 @@
 
-import { useCallback, useMemo } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { selectCurrentWeather, selectForecastWeather, selectLoadingWeather, selectLocationWeather } from 'store/wheather';
+import { useMemo } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
+import { selectCurrentWeather, selectForecastWeather, selectLoadingWeather, selectLocationWeather, selectTodayWeather } from 'store/wheather';
 import { UsEpaIndex } from 'types';
 
 
@@ -12,10 +12,10 @@ export const useWeather = () => {
     const currentWeather = useSelector(selectCurrentWeather, shallowEqual);
     const forecastWeather = useSelector(selectForecastWeather, shallowEqual);
     const locationWeather = useSelector(selectLocationWeather, shallowEqual);
+    const todayWeather = useSelector(selectTodayWeather, shallowEqual);
 
-    const renderUsIndexText = (): string => {
+    const renderUsIndexText = useMemo((): string => {
         let text: string = '';
-
         switch (currentWeather?.air_quality.us_epa_index) {
             case UsEpaIndex.Good:
                 text = 'Good';
@@ -41,6 +41,8 @@ export const useWeather = () => {
 
         return text;
 
-    }
-    return { currentWeather, forecastWeather, locationWeather, loadingWeather, renderUsIndexText }
+    }, [currentWeather?.air_quality.us_epa_index])
+
+
+    return { currentWeather, forecastWeather, locationWeather, loadingWeather, todayWeather, renderUsIndexText }
 };

@@ -1,0 +1,59 @@
+.highlights {
+  margin-top: calc(var(--spacer-l) * 2);
+}
+
+.cardArea {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 275px));
+  grid-auto-rows: 220px;
+  grid-gap: 2rem;
+  margin-top: var(--spacer-m);
+}
+
+.iconContainer {
+  padding: var(--spacer-s);
+  border: 2px solid #f4f4f5;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sun {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 222, 45, 1) 35%,
+    rgba(255, 199, 94, 1) 100%
+  );
+  width: 30px;
+  height: 30px;
+  & svg {
+    fill: #fffdf2;
+  }
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sunContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.sunText {
+  margin-left: 20px;
+}
+
+.windText {
+  margin-left: var(--spacer-s);
+}
+
+.sunLastText {
+  margin-top: 40px;
+  margin-bottom: 10px;
+}

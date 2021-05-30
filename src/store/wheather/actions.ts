@@ -1,5 +1,4 @@
 import { Dispatch } from 'redux';
-import { makeRequest } from 'services/base';
 import { IWeatherResponse } from 'services/wheather';
 import authService from 'services/wheather/weather';
 import { WheatherActionTypes } from 'store/wheather/types';
@@ -29,7 +28,7 @@ export const getCurrentWeather = () => async (dispatch: Dispatch<WheatherActionT
 
     try {
         dispatch(weatherRequest())
-
+        
         const data = await authService.getWheather({q: 'bursa', days:3, aqi: 'yes'})
         
         dispatch(weatherSuccess(data))

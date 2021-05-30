@@ -3,9 +3,9 @@ import styles from 'components/card/card.module.scss';
 import { Text, TextSizes } from 'components/text';
 import classNames from 'classnames';
 
-export const Card = ({children, className}: any) => {
+export const Card = ({children, className, ...props}: any) => {
     return (
-        <div className={classNames(styles.container, className)}>
+        <div className={classNames(styles.container, className)} {...props}>
             {children}
         </div>
     )
