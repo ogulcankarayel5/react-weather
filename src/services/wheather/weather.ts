@@ -7,7 +7,7 @@ import { renameKey } from 'utils';
 const replacements = { 'us-epa-index': 'us_epa_index', 'gb-defra-index': 'gb_defra_index' };
 
 const getWheather = async (params: any): Promise<IWeatherResponse> => {
-
+   
     const response = await makeRequest<IWeatherResponse>({ params, method: 'GET' }, Endpoints.ForeCast);
     const newObject = renameKey(response.current.air_quality, replacements)
     for (let key in response) {
@@ -26,8 +26,8 @@ const getWheather = async (params: any): Promise<IWeatherResponse> => {
 }
 
 
-const authService = {
+const weatherService = {
     getWheather
 }
 
-export default authService;
+export default weatherService;

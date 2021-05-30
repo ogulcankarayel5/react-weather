@@ -1,9 +1,13 @@
-import { WHEATHER_REQUEST, WHEATHER_SUCCESS } from './constants';
+import { WHEATHER_LOCATION_SUCCESS, WHEATHER_REQUEST, WHEATHER_SUCCESS } from './constants';
 import { WheatherState, WheatherActionTypes } from "store/wheather/types";
 
 const initialState: WheatherState = {
   loading: true,
-  weather: null
+  weather: null,
+  location: {
+    latitude: 0,
+    longitude: 0
+  }
 };
 
 export function weatherReducer(
@@ -14,9 +18,10 @@ export function weatherReducer(
     case WHEATHER_REQUEST:
       return {
         ...state,
-        loading:true,
+        loading: true,
       }
     case WHEATHER_SUCCESS:
+    case WHEATHER_LOCATION_SUCCESS:
       return {
         ...state,
         weather: action.payload,

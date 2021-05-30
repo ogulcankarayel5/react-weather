@@ -4,11 +4,11 @@ import { firebaseAnalytics } from "firebaseConfig";
 import { Tabs, Tab } from "components/tab/tabs";
 import { Card } from "components/card";
 import { useDispatch } from "react-redux";
-import { getCurrentWeather } from "store/wheather";
+import { getLocation } from "store/wheather";
 import { IForeCastDayResponse } from "services/wheather";
 import { useWeather } from "hooks";
 import { Highlihts, RightSide } from "pages/Home/components/sides";
-import { Tempature, WeatherCard } from "pages/Home/components";
+import {  WeatherCard } from "pages/Home/components";
 import Skeleton from "react-loading-skeleton";
 import { getColor } from "utils";
 
@@ -40,8 +40,9 @@ const Home = () => {
     useWeather();
 
   const dispatch = useDispatch();
-
+  // useGeolocation();
   useEffect(() => {
+    dispatch(getLocation())
     firebaseAnalytics.logEvent("homepage_visited");
   }, []);
 
@@ -64,9 +65,7 @@ const Home = () => {
   useEffect(() => {
     if (currentWeather && forecastWeather?.forecastday) {
       return;
-    } else {
-      dispatch(getCurrentWeather());
-    }
+    } 
   }, [isToday, dispatch, currentWeather, forecastWeather?.forecastday]);
 
   return (
