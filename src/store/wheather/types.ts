@@ -1,47 +1,53 @@
-import { IWeatherResponse } from "services/wheather";
-import { WHEATHER_REQUEST, WHEATHER_SUCCESS, WHEATHER_FAILURE, WHEATHER_LOCATION_SUCCESS } from "store/wheather/constants";
+import { WEATHER_CLEAR_RESULT, WEATHER_FAILURE, WEATHER_REQUEST, WEATHER_SEARCH_REQUEST, WEATHER_SEARCH_SUCCESS, WEATHER_SUCCESS } from 'store/wheather/constants';
+import { ISearchResponse, IWeatherResponse } from "services/wheather";
+
 
 
 export interface IWeatherParams {
     q: string;
-    aqi: string;
-    days: number;
+    aqi?: string;
+    days?: number;
 
 }
-export interface IWeatherLocation {
-    latitude: number;
-    longitude: number;
-}
-
-export interface WheatherState {
+export interface WeatherState {
     loading: boolean
     weather: IWeatherResponse | null;
-    location: IWeatherLocation;
+    searchLoading: boolean;
+    searchResult: Array<ISearchResponse>;
     
 }
 
-export interface WheatherRequestAction {
-    type: typeof WHEATHER_REQUEST;
+export interface WeatherRequestAction {
+    type: typeof WEATHER_REQUEST;
 }
 
-export interface WheatherSuccessAction {
-    type: typeof WHEATHER_SUCCESS;
+export interface WeatherSuccessAction {
+    type: typeof WEATHER_SUCCESS;
 
     payload: any;
 }
 
-export interface WheatherLocationSuccessAction {
-    type: typeof WHEATHER_LOCATION_SUCCESS;
+export interface WeatherFailureAction {
+    type: typeof WEATHER_FAILURE;
+}
+
+
+export interface WeatherSearchRequestAction {
+    type: typeof WEATHER_SEARCH_REQUEST
+}
+export interface WeatherSearchSuccessAction {
+    type: typeof WEATHER_SEARCH_SUCCESS;
     payload: any;
 }
 
-export interface WheatherFailureAction {
-    type: typeof WHEATHER_FAILURE;
+export interface WeatherClearSearchResultAction {
+    type: typeof WEATHER_CLEAR_RESULT
 }
 
-
-export type WheatherActionTypes =
-    | WheatherRequestAction
-    | WheatherSuccessAction
-    | WheatherFailureAction
-    | WheatherLocationSuccessAction
+export type WeatherActionTypes =
+    | WeatherRequestAction
+    | WeatherSuccessAction
+    | WeatherFailureAction
+    | WeatherSearchRequestAction
+    | WeatherSearchSuccessAction
+    | WeatherClearSearchResultAction

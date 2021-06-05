@@ -1,31 +1,44 @@
-import { WHEATHER_LOCATION_SUCCESS, WHEATHER_REQUEST, WHEATHER_SUCCESS } from './constants';
-import { WheatherState, WheatherActionTypes } from "store/wheather/types";
+import { WEATHER_SUCCESS, WEATHER_SEARCH_SUCCESS, WEATHER_REQUEST, WEATHER_FAILURE, WEATHER_SEARCH_REQUEST, WEATHER_CLEAR_RESULT} from 'store/wheather/constants';
+import { WeatherState, WeatherActionTypes } from "store/wheather/types";
 
-const initialState: WheatherState = {
+const initialState: WeatherState = {
   loading: true,
   weather: null,
-  location: {
-    latitude: 0,
-    longitude: 0
-  }
+  searchLoading: false,
+  searchResult: []
 };
 
 export function weatherReducer(
   state = initialState,
-  action: WheatherActionTypes
-): WheatherState {
+  action: WeatherActionTypes
+): WeatherState {
   switch (action.type) {
-    case WHEATHER_REQUEST:
+    case WEATHER_SEARCH_REQUEST:
+      return {
+        ...state,
+        searchLoading: true,
+      }
+    case WEATHER_REQUEST:
       return {
         ...state,
         loading: true,
       }
-    case WHEATHER_SUCCESS:
-    case WHEATHER_LOCATION_SUCCESS:
+    case WEATHER_SUCCESS:
       return {
         ...state,
         weather: action.payload,
         loading: false
+      }
+    case WEATHER_SEARCH_SUCCESS:
+      return {
+        ...state,
+        searchResult: action.payload,
+        searchLoading: false
+      }
+    case WEATHER_CLEAR_RESULT:
+      return {
+        ...state,
+        searchResult:[],
       }
     default:
       return state;

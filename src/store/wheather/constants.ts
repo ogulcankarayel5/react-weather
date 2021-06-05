@@ -1,5 +1,7 @@
-export const WHEATHER_REQUEST = '@wheather/WHEATHER_REQUEST';
-export const WHEATHER_SUCCESS = '@wheather/WHEATHER_SUCCESS';
-export const WHEATHER_FAILURE = '@wheather/WHEATHER_FAILURE';
+export const WEATHER_REQUEST = '@wheather/WHEATHER_REQUEST';
+export const WEATHER_SUCCESS = '@wheather/WHEATHER_SUCCESS';
+export const WEATHER_FAILURE = '@wheather/WHEATHER_FAILURE';
 
-export const WHEATHER_LOCATION_SUCCESS = '@wheather/WHEATHER_LOCATION_SUCCESS';
+export const WEATHER_SEARCH_REQUEST = '@wheather/WHEATHER_SEARCH_REQUEST';
+export const WEATHER_SEARCH_SUCCESS = '@wheather/WHEATHER_SEARCH_SUCCESS';
+export const WEATHER_CLEAR_RESULT = '@wheather/WHEATHER_CLEAR_RESULT';

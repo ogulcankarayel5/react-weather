@@ -31,3 +31,13 @@ export const selectTodayWeather = createSelector(
     selectWeather,
     weather => weather?.forecast.forecastday[0]
 )
+
+export const selectSearchLoading = createSelector(
+    getWeather,
+    weather => weather.searchLoading
+)
+
+export const selectSearchResult = createSelector(
+    getWeather,
+    weather => weather.searchResult
+)

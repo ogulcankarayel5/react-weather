@@ -1,42 +1,57 @@
 import { Dispatch } from 'redux';
-import { IWeatherResponse } from 'services/wheather';
+import { ISearchResponse, IWeatherResponse } from 'services/wheather';
 import weatherService from 'services/wheather/weather';
-import { IWeatherLocation, IWeatherParams, WheatherActionTypes } from 'store/wheather/types';
-import { WHEATHER_FAILURE, WHEATHER_LOCATION_SUCCESS, WHEATHER_REQUEST, WHEATHER_SUCCESS } from './constants';
+import { IWeatherParams, WeatherActionTypes } from 'store/wheather/types';
+import { WEATHER_CLEAR_RESULT, WEATHER_FAILURE, WEATHER_REQUEST, WEATHER_SEARCH_REQUEST, WEATHER_SEARCH_SUCCESS, WEATHER_SUCCESS } from 'store/wheather/constants';
 
 
-export const weatherRequest = (): WheatherActionTypes => {
+export const weatherRequest = (): WeatherActionTypes => {
     return {
-        type: WHEATHER_REQUEST
+        type: WEATHER_REQUEST
     }
 }
 
-export const weatherSuccess = (data: IWeatherResponse): WheatherActionTypes => {
+export const weatherSuccess = (data: IWeatherResponse): WeatherActionTypes => {
     return {
-        type: WHEATHER_SUCCESS,
+        type: WEATHER_SUCCESS,
         payload: data
     }
 }
 
-export const weatherLocationSuccess = (data: IWeatherLocation): WheatherActionTypes => {
+export const weatherFailure = (): WeatherActionTypes => {
     return {
-        type: WHEATHER_LOCATION_SUCCESS,
+        type: WEATHER_FAILURE
+    }
+}
+
+
+
+export const weatherSearchRequest = (): WeatherActionTypes => {
+    return {
+        type: WEATHER_SEARCH_REQUEST
+    }
+}
+
+
+export const weatherSearchSuccess = (data: Array<ISearchResponse>): WeatherActionTypes => {
+    return {
+        type: WEATHER_SEARCH_SUCCESS,
         payload: data
     }
 }
 
-export const weatherFailure = (): WheatherActionTypes => {
+export const clearSearchResult = () : WeatherActionTypes => {
     return {
-        type: WHEATHER_FAILURE
+        type: WEATHER_CLEAR_RESULT
     }
 }
 
-export const getCurrentWeather = (params: IWeatherParams) => async (dispatch: Dispatch<WheatherActionTypes>) => {
+export const getCurrentWeather = (params: IWeatherParams) => async (dispatch: Dispatch<WeatherActionTypes>) => {
 
     try {
         dispatch(weatherRequest())
 
-        const data = await weatherService.getWheather(params)
+        const data = await weatherService.getWeather(params)
         dispatch(weatherSuccess(data))
     }
 
@@ -44,3 +59,25 @@ export const getCurrentWeather = (params: IWeatherParams) => async (dispatch: Di
         console.log(err)
     }
 }
+
+export const search = (params: IWeatherParams) => async (dispatch: Dispatch<WeatherActionTypes>) => {
+
+    try {
+        const data = await weatherService.search(params);
+        console.log(data)
+        dispatch(weatherSearchSuccess(data));
+    }
+    catch(err) {
+        console.log(err)
+    }
+}
+
+const weatherActions = {
+    getCurrentWeather,
+    search,
+    clearSearchResult,
+    weatherSearchRequest
+}
+
+export default weatherActions;
+

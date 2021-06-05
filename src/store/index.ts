@@ -1,14 +1,14 @@
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk, { ThunkMiddleware } from 'redux-thunk';
-import { WheatherActionTypes } from 'store/wheather/types';
+import { WeatherActionTypes } from 'store/wheather/types';
 import { weatherReducer } from 'store/wheather/reducer';
 
 export const rootReducer = combineReducers({
     wheather: weatherReducer
 });
 
-export type AppActions = WheatherActionTypes;
+export type AppActions = WeatherActionTypes;
 
 export type AppState = ReturnType<typeof rootReducer>;
 

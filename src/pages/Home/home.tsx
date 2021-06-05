@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "pages/Home/home.module.scss";
 import { firebaseAnalytics } from "firebaseConfig";
-import { Tabs, Tab } from "components/tab/tabs";
-import { Card } from "components/card";
+import { Tabs, Tab, Card } from "components";
 import { useDispatch } from "react-redux";
 import { IForeCastDayResponse } from "services/wheather";
-import { useGeolocation, useWeather } from "hooks";
+import { useDebounce, useGeolocation, useWeather } from "hooks";
 import { Highlihts, RightSide } from "pages/Home/components/sides";
-import {  WeatherCard } from "pages/Home/components";
+import { AutoComplete, WeatherCard } from "pages/Home/components";
 import Skeleton from "react-loading-skeleton";
 import { getColor } from "utils";
+import weatherActions from "store/wheather/actions";
 
 const tabContent = [
   {
@@ -41,7 +41,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useGeolocation();
-  
+
   useEffect(() => {
     firebaseAnalytics.logEvent("homepage_visited");
   }, []);
@@ -61,16 +61,17 @@ const Home = () => {
       setTemperature("fahrenheit");
     }
   };
-  console.log(forecastWeather);
   useEffect(() => {
     if (currentWeather && forecastWeather?.forecastday) {
       return;
-    } 
+    }
   }, [isToday, dispatch, currentWeather, forecastWeather?.forecastday]);
 
   return (
     <div className={styles.home}>
-      <div className={styles.leftSide} />
+      <div className={styles.leftSide}>
+        <AutoComplete />
+      </div>
       <RightSide>
         <div className={styles.tabs}>
           <Tabs

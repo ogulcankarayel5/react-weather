@@ -34,7 +34,7 @@ interface IWeatherResponseCurrentResponse {
 
 export interface IAirQualityResponse {
     co: number
-    gb_defra_index:number
+    gb_defra_index: number
     no2: number
     o3: number
     pm2_5: number
@@ -130,4 +130,15 @@ interface IHourResponse {
     wind_mph: number
     windchill_c: number
     windchill_f: number
+}
+
+
+export interface ISearchResponse {
+    id: number
+    name: string
+    region: string
+    country: string
+    lat: number
+    lon: number
+    url: string
 }

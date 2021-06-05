@@ -1,0 +1,37 @@
+
+
+.searchContainer {
+    width:75%;
+    position: relative;
+    height: 30px;
+  }
+  .searchInput {
+    width: 100%;
+    padding-left: var(--spacer-xl);
+    height: 100%;
+    outline: none;
+    border: none;
+    &:focus {
+      outline: none;
+    border: none;
+    }
+  }
+  
+  
+  
+  .searchIcon {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-left: 2px;
+  }
+  
+  
+  .suggestions {
+    width: 100%;
+  
+    overflow-y: auto;
+    background-color: gray;
+  }
