@@ -1,3 +1,4 @@
+export { default as Cancel } from './Cancel'
 export { default as DownArrow } from './DownArrow'
 export { default as Placeholder } from './Placeholder'
 export { default as Search } from './Search'

@@ -1,6 +1,4 @@
-import React from "react";
 import { useEffect } from "react";
-import { useState } from "react";
 
 export const useDebounce = (value: string, timeout: number, callback: Function, loading?: any) => {
 
@@ -15,5 +13,6 @@ export const useDebounce = (value: string, timeout: number, callback: Function, 
         return () => {
             clearTimeout(timeOut)
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value])
 }

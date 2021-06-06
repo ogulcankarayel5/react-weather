@@ -1,4 +1,4 @@
-import { WEATHER_SUCCESS, WEATHER_SEARCH_SUCCESS, WEATHER_REQUEST, WEATHER_FAILURE, WEATHER_SEARCH_REQUEST, WEATHER_CLEAR_RESULT} from 'store/wheather/constants';
+import { WEATHER_SUCCESS, WEATHER_SEARCH_SUCCESS, WEATHER_REQUEST, WEATHER_SEARCH_REQUEST, WEATHER_CLEAR_RESULT} from 'store/wheather/constants';
 import { WeatherState, WeatherActionTypes } from "store/wheather/types";
 
 const initialState: WeatherState = {

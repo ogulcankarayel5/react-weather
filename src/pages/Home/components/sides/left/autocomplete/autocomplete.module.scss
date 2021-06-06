@@ -1,37 +1,64 @@
-
-
 .searchContainer {
-    width:75%;
-    position: relative;
-    height: 30px;
-  }
-  .searchInput {
-    width: 100%;
-    padding-left: var(--spacer-xl);
-    height: 100%;
+  width: 95%;
+  position: relative;
+  height: 30px;
+}
+.searchInput {
+  width: 100%;
+  padding-left: calc(var(--spacer-m) * 1.4);
+  height: 100%;
+  outline: none;
+  border: none;
+  &:focus {
     outline: none;
     border: none;
-    &:focus {
-      outline: none;
-    border: none;
-    }
   }
-  
-  
-  
-  .searchIcon {
-    width: 12px;
-    height: 12px;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    padding-left: 2px;
+}
+
+.searchIcon {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding-left: 2px;
+}
+
+.cancelIcon {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 2px;
+  animation: in 0.4s;
+  cursor: pointer;
+}
+
+.suggestions {
+  width: 100%;
+
+  overflow-y: auto;
+  background-color: var(--color-secondary);
+}
+
+.autocompleteItem {
+  margin: 17px 0 0 2px;
+  cursor: pointer;
+}
+
+.empty {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@keyframes in {
+  0% {
+    opacity: 0;
   }
-  
-  
-  .suggestions {
-    width: 100%;
-  
-    overflow-y: auto;
-    background-color: gray;
+
+  100% {
+    opacity: 1;
   }
+}

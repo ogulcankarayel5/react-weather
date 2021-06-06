@@ -61,6 +61,8 @@ const Home = () => {
       setTemperature("fahrenheit");
     }
   };
+
+  console.log(forecastWeather);
   useEffect(() => {
     if (currentWeather && forecastWeather?.forecastday) {
       return;
