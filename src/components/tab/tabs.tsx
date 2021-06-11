@@ -68,7 +68,7 @@ interface ITabProps {
 }
 export const Tab = ({ label, id, className='', activeClass='', ...props }: ITabProps) => {
   const { activeTab, setActive, indicatorColor } = useTabsContext();
-
+ 
   return (
     <button
       style={ indicatorColor === '' ? {} : { "--color-indicator": indicatorColor ? indicatorColor :  getColor("--color-indicator")} as CSSProperties}

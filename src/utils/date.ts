@@ -1,11 +1,17 @@
-export const getDayName = (timeEpoch : number) => {
+export const getDayName = (timeEpoch : number, isFullName: boolean = false) => {
     const date = new Date(timeEpoch* 1000).toLocaleString('en-us', {weekday:'long'})
-    return date.slice(0,3)
+
+    return isFullName ? date : date.slice(0,3);
 }
 
 export const getDecimalValue = (tempature : number) => {
     const decimal = tempature.toString().split(".")[0];
     return decimal
+}
+
+export const getLastUpdatedTime = (date: string) => {
+    const updatedTime = date.split(" ")[1];
+    return updatedTime;
 }
 
 // export const sunDiff = (time: string) => {

@@ -3,5 +3,12 @@
     
     grid-column: 2/3;
     background-color: var(--color-secondary);
-    padding: calc(var(--spacer-xl) * 2) var(--spacer-s) calc(var(--spacer-xl) * 2) calc(var(--spacer-xl) * 2);
+    padding: calc(var(--spacer-xl) * 1.25) var(--spacer-s) calc(var(--spacer-xl) * 1.25) calc(var(--spacer-xl) * 2);
   }
+
+
+.leftSide {
+  grid-column: 1/2;
+  background-color: var(--color-primary);
+  padding: calc(var(--spacer-xl) * 2) var(--spacer-s) calc(var(--spacer-xl) * 2) calc(var(--spacer-xl) * 2);
+}

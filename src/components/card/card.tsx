@@ -35,9 +35,9 @@ export const CardBody = ({children, className='', ...props}: any) => {
         <div className={classNames(styles.body, className)} {...props}>{children}</div>
     )
 }
-export const CardImage = ({url}: any) => {
+export const CardImage = ({url, width=64, height=64}: any) => {
     return (
-        <img src={url} alt="" />
+        <img src={url} alt="" {...{width,height}}/>
     )
 }
 
