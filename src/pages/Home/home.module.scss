@@ -1,8 +1,12 @@
-@import "../../styles/scss-variables";
+@import "mixins.scss";
+
 .home {
   height: 100vh;
   display: grid;
   grid-template-columns: minmax(200px, 400px) 1fr;
+  @include breakpoint('md'){
+    grid-template-columns: 1fr;
+  }
 }
 
 .searchContainer {

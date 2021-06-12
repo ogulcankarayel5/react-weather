@@ -10,7 +10,7 @@ export const Highlihts = React.memo(() => {
   
   return (
     <div className={styles.highlights}>
-      <Text fontWeight="bold" type="primary">
+      <Text fontWeight="bold" type="primary" className={styles.highlightText}>
         Today's Highlights
       </Text>
       <div className={styles.cardArea}>
