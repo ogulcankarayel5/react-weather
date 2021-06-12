@@ -22,6 +22,7 @@ Firebase values are required for analytics config
 
 ```bash
 NODE_PATH=src/
+SASS_PATH=src/styles
 REACT_APP_API_KEY=<YOUR_API_KEY>
 
 REACT_APP_FIREBASE_API_KEY=<YOUR_FIREBASE_API_KEY>
